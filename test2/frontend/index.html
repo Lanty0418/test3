@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Multi-Agent Web UI</title>
+</head>
+<body>
+  <h1>Ask Multiple Agents</h1>
+  <input type="text" id="userInput" placeholder="Type your question...">
+  <button onclick="askAll()">Ask All Agents</button>
+  <button onclick="askWeather()">Ask Weather Only</button>
+  <button onclick="askTime()">Ask Time Only</button>
+
+  <h2>Weather Agent</h2>
+  <p id="weatherReply"></p>
+
+  <h2>Time Agent</h2>
+  <p id="timeReply"></p>
+
+  <script>
+    async function sendQuery(agentName=null) {
+      const userMessage = document.getElementById("userInput").value;
+
+      const response = await fetch("http://localhost:8000/ask", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userMessage, agent: agentName })
+      });
+
+      const data = await response.json();
+
+      if(agentName === "weather") {
+        document.getElementById("weatherReply").innerText = data.weather;
+      } else if(agentName === "time") {
+        document.getElementById("timeReply").innerText = data.time;
+      } else {
+        // agentName = null → 所有 agent
+        document.getElementById("weatherReply").innerText = data.weather;
+        document.getElementById("timeReply").innerText = data.time;
+      }
+    }
+
+    function askAll() { sendQuery(null); }
+    function askWeather() { sendQuery("weather"); }
+    function askTime() { sendQuery("time"); }
+  </script>
+</body>
+</html>
