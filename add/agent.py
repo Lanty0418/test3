@@ -1,3 +1,23 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:2e5ba7f952828b6a79cb6475e4754a999ad07f300be20ddd1d44d7b0c2c43584
-size 561
+from google.adk.agents import SequentialAgent
+
+
+# === 匯入子代理 ===
+from add.agents.llm.agent import llm_agent
+from add.agents.classifier.agent import classifier_agent
+from add.agents.weight.agent import weight_agent
+
+# =============== Root Pipeline ===============
+# 固定順序：Curator → Historian → 主持人回合制（正/反/極端）→ Social → Evidence → Jury → Synthesizer(JSON)
+
+
+
+
+
+root_agent = SequentialAgent(
+    name="root_pipeline",
+    sub_agents=[
+        llm_agent,
+        classifier_agent,
+        weight_agent
+    ],
+)
