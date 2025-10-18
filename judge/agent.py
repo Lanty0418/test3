@@ -79,8 +79,13 @@ def bind_session(session: Session) -> None:
 
 init_session = LlmAgent(
     name="init_session",
-    model="gemini-2.5-flash",
-    instruction=("初始化 session（此代理僅用於在執行前設定 state，無需輸出）。"),
+    model="gemini-2.0-flash",
+    instruction=(
+        "初始化 session。"
+        "請把接收到的資訊做提煉，使輸入文本僅保留事實的描述及事情發生的時間，移除個人意見內容，限200字內。"
+        "注意切勿自行修改文本內容，請真實以輸入文本內容作呈現。"
+        "將結果存入 state['_init_session'] 中。"
+    ),
     before_agent_callback=_before_init_session,
     output_key="_init_session",
 )
@@ -89,14 +94,7 @@ root_agent = SequentialAgent(
     name="root_pipeline",
     sub_agents=[
         init_session,
-        curator_agent,
-        historian_agent,
-        referee_loop,
-        social_summary_agent,
-        adjudication_agent,
-        llm_agent,
-        classifier_agent,
-        weight_agent
+        llm_agent
     ],
 )
 
