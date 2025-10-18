@@ -71,7 +71,7 @@ fact_check_agent = LlmAgent(
         體育 (Sports) -> Sports_tool
         地方 (Local) -> Local_tool
         
-        請將呼叫工具輸出結果直接存入 state['fact_check_result'] 中。"""
+        請將呼叫工具輸出結果直接存入 state['fact_check_result'] 中，並直接輸出。"""
     ),
     #input_schema=FactCheckInput,
     tools= [Politics_tool,Society_tool,Economy_tool,Lifestyle_tool,International_tool,Technology_tool,Entertainment_tool,Sports_tool,Local_tool],

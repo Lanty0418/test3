@@ -59,6 +59,9 @@ Entertainment_agent2  = LlmAgent(
         - 是否有誤導敘述或未提供佐證？
 
         ---
+        現在請判斷以下新聞文本的真偽，並依照上述七個視角進行分析。
+        判斷文本為:
+        {_init_session}
 
         ## 請強制依以下 JSON 格式回傳結果：
 
