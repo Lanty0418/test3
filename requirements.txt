@@ -1,0 +1,11 @@
+google-adk
+google-generativeai
+pandas
+pydantic
+python-dotenv
+pytest
+rouge-score
+tabulate
+deprecated
+scikit-learn
+datasets
